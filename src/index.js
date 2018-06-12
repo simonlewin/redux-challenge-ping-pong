@@ -41,7 +41,7 @@ let render = () => {
   player2.textContent = state.player2;
 
   // render winner
-  if (state.winner > 0) {
+  if (state.winner != null) {
     jumbo.classList.remove('invisible');
     jumbo.classList.add('visible');
     winner.textContent = `Player ${ state.winner } Wins`;
@@ -52,8 +52,8 @@ let render = () => {
 }
 
 //  add event listeners to buttons and dispatch actions 
-click1.addEventListener('click', () => store.dispatch({ type: 'change', player: 1 }));
-click2.addEventListener('click', () => store.dispatch({ type: 'change', player: 2 }));
+click1.addEventListener('click', () => store.dispatch({ type: 'change', player: 'player1' }));
+click2.addEventListener('click', () => store.dispatch({ type: 'change', player: 'player2' }));
 reset.addEventListener('click', () => store.dispatch({ type: 'reset' }));
 
 // subscribe to any changes
