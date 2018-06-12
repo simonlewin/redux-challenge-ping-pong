@@ -1,13 +1,13 @@
 // reducer functions 
 import initial from './initial';
 
-// winning score and alternate server 
+// winning score, alternate server and margin 
 const target = 11;
 const switchServer = 2;
 const switchServerAlt = 1;
 const margin = 2;
 
-// test for winner - first to target and at least a two point margin
+// test for winner - first to target and ahead by point margin
 const won = (a, b) => a >= target && a - b >= margin;
 
 const winner = state => {
@@ -18,11 +18,14 @@ const winner = state => {
   };
 }
 
-// change server - alternate between 0 and 1 every 5 points
-// until scores > 21 then alternate every 2 points
+// change server - alternate between 0 and 1 every `switchServer` points
+// until scores > target - 1 then alternate every switchServerAlt points
 const server = state => {
   const { player1, player2 } = state;
-  let alternate = (player1 > target - 1) || (player2 > target - 1) ? switchServerAlt : switchServer; 
+  let alternate = 
+    (player1 > target - 1) || (player2 > target - 1) 
+    ? switchServerAlt 
+    : switchServer; 
   return { 
     ...state, 
     serving: Math.floor((player1 + player2) / alternate) % 2
@@ -30,12 +33,11 @@ const server = state => {
 }
 
 // update players' points 
-const change = (state, { player }) => {
-  return { 
-    ...state, 
-    [player]: state[player] + 1, 
-  };
-};
+const change = (state, { player }) => (
+  { ...state, 
+    [player]: 
+    state[player] + 1, 
+  })
 
 // reducer transforms data based on the action's type property
 const reducer = (state, action) => {

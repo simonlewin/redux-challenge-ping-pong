@@ -27,7 +27,7 @@ let jumbo = document.getElementById('jumbo');
 let render = () => {
   let state = store.getState();
 
-  // highlight server
+  // highlight server with class='table-danger'
   if (state.serving === 0) {
     serve1.classList.add('table-danger');
     serve2.classList.remove('table-danger');
@@ -36,11 +36,11 @@ let render = () => {
     serve1.classList.remove('table-danger');
   }
 
-  // render scores
+  // display scores
   player1.textContent = state.player1;
   player2.textContent = state.player2;
 
-  // render winner
+  // make jumbotron visible ands display winner 
   if (state.winner != null) {
     jumbo.classList.remove('invisible');
     jumbo.classList.add('visible');
